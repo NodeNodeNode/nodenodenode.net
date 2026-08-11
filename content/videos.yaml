@@ -14,11 +14,21 @@
 # 这个站是资源聚合站,不是谁的作品集 —— 把自己的排前面、别人的垫底,
 # 观感上就变味了。序号由组件按数组下标自动生成,挪条目即可,不用手改。
 
-channel_bilibili: https://space.bilibili.com/19207397
-channel_youtube: https://www.youtube.com/channel/UCSJuEFRlfo11WDbeWFcFZVg
-
 # 渲染在章节标题下面。一句话挑明这是目录不是作品集。
 intro: 本页收录 连节社 与 节点映射(TonyMark) 做的中文教程,按由浅入深排列。
+
+# 渲染在视频板块末尾,两位创作者平级并列。
+#
+# 这里原来是一个「B 站全部视频」按钮,只指向连节社的空间 —— 一节创作者
+# 中立的目录,底下挂一个只通向站长自己频道的实心按钮,等于把好不容易
+# 拉平的观感又推回去。而且"全部视频"这个说法本身就不成立。
+creators:
+  - name: 连节社
+    bilibili: https://space.bilibili.com/19207397
+    youtube: https://www.youtube.com/channel/UCSJuEFRlfo11WDbeWFcFZVg
+  - name: 节点映射 / TonyMark
+    bilibili: https://space.bilibili.com/343349374
+    youtube: https://www.youtube.com/@tonymark1737
 
 series:
   - id: intro

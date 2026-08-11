@@ -76,12 +76,30 @@ const hasVideos = Array.isArray(videos.series) && videos.series.length > 0
               <SeriesCard s={s} index={i} />
             ))}
           </div>
-          {filled(videos.channel_bilibili) && (
-            <p class="more">
-              <a class="btn pixel" href={videos.channel_bilibili} target="_blank" rel="noopener noreferrer">
-                B 站全部视频
-              </a>
-            </p>
+          {videos.creators?.length > 0 && (
+            <div class="creators">
+              <p class="label">创作者</p>
+              <ul class="creators__list">
+                {videos.creators.map((c) => (
+                  <li>
+                    <span class="pin" />
+                    <span class="creators__name pixel">{c.name}</span>
+                    <span class="creators__links">
+                      {filled(c.bilibili) && (
+                        <a class="pixel" href={c.bilibili} target="_blank" rel="noopener noreferrer">
+                          B站
+                        </a>
+                      )}
+                      {filled(c.youtube) && (
+                        <a class="pixel creators__yt" href={c.youtube} target="_blank" rel="noopener noreferrer">
+                          YouTube
+                        </a>
+                      )}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           )}
         </Section>
       )
@@ -196,9 +214,52 @@ const hasVideos = Array.isArray(videos.series) && videos.series.length > 0
     grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
   }
 
-  .more {
-    margin-top: var(--s4);
+  /* 创作者署名。用和 .upstream 一样的"细线 + 列表"处理,
+     刻意不做成按钮 —— 这一节里唯一的实心按钮会显得它最重要,
+     而它只是个署名。 */
+  .creators {
+    margin-top: var(--s6);
     margin-left: var(--s3);
+    border-top: var(--line-soft);
+    padding-top: var(--s2);
+  }
+
+  .creators__list {
+    margin-top: var(--s2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s1);
+  }
+
+  .creators__list li {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--s1) var(--s2);
+  }
+
+  /* 192px = 8×24,让两行的链接列对齐。名字长短不一时,不对齐会显得随手摆的 */
+  .creators__name {
+    font-size: var(--px-1);
+    min-width: 192px;
+  }
+
+  .creators__links {
+    display: flex;
+    gap: var(--s2);
+  }
+
+  .creators__links a {
+    font-size: var(--px-1);
+    text-decoration: none;
+    color: var(--signal);
+    border-bottom: 1px solid var(--signal);
+  }
+
+  /* YouTube 淡化,和分集列表里的处理保持一致 */
+  .creators__links .creators__yt {
+    color: var(--grey-500);
+    border-bottom-color: var(--grey-400);
   }
 
   .lead {
@@ -243,9 +304,9 @@ const hasVideos = Array.isArray(videos.series) && videos.series.length > 0
     .cards,
     .series,
     .upstream,
+    .creators,
     .rgroup,
     .grid,
-    .more,
     .lead,
     .prose,
     .help {
