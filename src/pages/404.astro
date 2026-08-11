@@ -1,0 +1,115 @@
+---
+/**
+ * 老论坛的 /post/N 之类链接已经被搜索引擎收录,而论坛已经停掉了。
+ * 这些人是冲着内容来的,不能只甩一个 404 了事,要给出去处。
+ */
+import Base from '../layouts/Base.astro'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+import { site } from '../lib/content.js'
+
+const exits = [
+  { label: '社群入口', href: '/#community', note: '加微信群,人在那边' },
+  { label: '学习资源', href: '/#resources', note: '中文文档和官方文档' },
+  { label: '视频教程', href: '/#videos', note: '中文视频' },
+]
+---
+
+<Base title={`页面不存在 — ${site.name}`} description="页面不存在">
+  <Header />
+
+  <main class="nf">
+    <div class="wrap">
+      <p class="nf__code pixel">404</p>
+      <h1 class="nf__title pixel">这个页面不在了</h1>
+      <p class="nf__body">
+        如果你是从搜索结果点进来的:连节社原本的论坛已经停止维护,
+        旧帖子的链接都失效了。社区现在主要在微信群里,内容收在下面这几处。
+      </p>
+
+      <ul class="nf__exits">
+        {
+          exits.map((e) => (
+            <li>
+              <a href={e.href}>
+                <span class="pin" />
+                <span class="pixel nf__exit-label">{e.label}</span>
+                <span class="nf__exit-note">{e.note}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="nf__back">
+        <a class="btn pixel" href="/">回首页</a>
+      </p>
+    </div>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  .nf {
+    padding-block: var(--s12) var(--s8);
+  }
+
+  .nf__code {
+    font-size: var(--px-1);
+    color: var(--grey-500);
+  }
+
+  .nf__title {
+    font-size: var(--px-3);
+    margin-block: var(--s2) var(--s3);
+  }
+
+  .nf__body {
+    max-width: 60ch;
+    color: var(--grey-700);
+  }
+
+  .nf__exits {
+    margin-top: var(--s6);
+    border-top: var(--line-soft);
+  }
+
+  .nf__exits li {
+    border-bottom: var(--line-soft);
+  }
+
+  .nf__exits a {
+    display: flex;
+    align-items: center;
+    gap: var(--s2);
+    padding-block: var(--s2);
+    text-decoration: none;
+  }
+
+  .nf__exit-label {
+    font-size: var(--px-1);
+  }
+
+  .nf__exit-note {
+    color: var(--grey-500);
+    font-size: 14px;
+  }
+
+  .nf__exits a:hover .pin {
+    background: var(--signal);
+  }
+
+  .nf__back {
+    margin-top: var(--s6);
+  }
+
+  @media (max-width: 720px) {
+    .nf {
+      padding-block: var(--s6);
+    }
+    .nf__title {
+      font-size: var(--px-2);
+    }
+  }
+</style>

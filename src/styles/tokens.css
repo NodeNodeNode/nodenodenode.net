@@ -1,0 +1,230 @@
+/* =============================================================
+   连节社 — design tokens
+
+   调色板锚定在 logo 的实际取色:纯黑 #000 + VGA 银 #C0C0C0。
+   不加蓝偏 —— 中性银本身就够冷,而且它是早期计算机/工业面板的
+   原生颜色,比人工调出来的"科技蓝灰"更诚实。
+
+   本站是**单一亮色主题**,不做深色模式:银灰底是这套视觉的身份
+   本身,反色会把它变成一个普通的开发者站。
+   ============================================================= */
+
+:root {
+  /* ---- 灰阶 ---- */
+  --void: #000000; /* logo 黑,只用于最高对比 */
+  --ink: #0e0f10; /* 正文 */
+  --grey-700: #3a3d40; /* 次级标题 */
+  --grey-500: #6d7175; /* 说明文字、元信息 */
+  --grey-400: #8f9295; /* 禁用、占位 */
+  /* 品牌锚点 #C0C0C0 由 logo 图片自己带,不在这里开 token —— 没人用的
+     token 迟早会和实际用色对不上 */
+  --grey-200: #cfcfcf; /* 面板底(浅) */
+  --grey-100: #dcdcdc; /* hover 底 */
+  --paper: #d8d8d8; /* 页面底 */
+  --white: #efefef; /* 反白面板 */
+
+  /* ---- 信号色:全站唯一的彩色,只用于可交互和连线端点 ---- */
+  --signal: #1f3fd1;
+  --signal-dim: #16309f;
+
+  /* ---- 边框 ---- */
+  --line: 1px solid var(--ink);
+  --line-soft: 1px solid var(--grey-400);
+
+  /* ---- 8px 网格。所有间距只能取这些值 ---- */
+  --s1: 8px;
+  --s2: 16px;
+  --s3: 24px;
+  --s4: 32px;
+  --s6: 48px;
+  --s8: 64px;
+  --s12: 96px;
+
+  /* ---- 字体 ----
+     像素字只用于标题/标签,字号必须是 12 的整数倍,否则点阵会糊。
+     正文用系统字体 —— 大段中文点阵字不可读,这是可用性不是风格。 */
+  --font-pixel: 'Fusion Pixel 12', monospace;
+  --font-body: -apple-system, BlinkMacSystemFont, 'PingFang SC',
+    'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', 'Source Han Sans SC',
+    sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --px-1: 12px;
+  --px-2: 24px;
+  --px-3: 36px;
+  --px-4: 48px;
+
+  --content-max: 1088px; /* 8 的倍数 */
+}
+
+/* 像素字的渲染:关掉抗锯齿,否则点阵边缘会被磨圆 */
+.pixel {
+  font-family: var(--font-pixel);
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+  font-smooth: never;
+  letter-spacing: 0;
+  font-weight: 400;
+  /* 4/3 让每一档字号的行高都正好落在 8px 网格上:
+     12→16, 24→32, 36→48, 48→64。用 1.5 的话 12px 会得到 18px,出格。 */
+  line-height: 1.3333;
+}
+
+/* =============================================================
+   Reset —— 只写必要的
+   ============================================================= */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* 顶部导航是 sticky 的,锚点跳转必须留出它的高度,
+     否则点「社群」会把章节标题顶到导航条底下 */
+  scroll-padding-top: var(--s6);
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 24px; /* 落在 8px 网格上 */
+}
+
+/* 零圆角、零阴影、零渐变 —— 这三条是本站"德式"观感的来源,别破例 */
+* {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--ink);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--signal);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+/* =============================================================
+   共用原子
+   ============================================================= */
+
+.wrap {
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--s3);
+}
+
+/* 抖动纹理:1-bit dither,纯 CSS,零成本。
+   1px/6px 约 17% 覆盖率 —— 再密就从"材质"变成"噪点",会盖过文字。 */
+.dither {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--grey-400) 0 1px,
+    transparent 1px 6px
+  );
+}
+
+/* 节点端点:2×2 的方块,节点图母题的基本单位 */
+.pin {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--ink);
+  vertical-align: middle;
+  flex: none;
+}
+
+.pin--signal {
+  background: var(--signal);
+}
+
+/* 按钮:方形、1px 边框、hover 实心反色。无圆角无阴影无渐变 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  height: var(--s4);
+  padding-inline: var(--s2);
+  border: var(--line);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-pixel);
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  font-size: var(--px-1);
+  line-height: 1.3333;
+  text-decoration: none;
+  transition: background-color 80ms linear, color 80ms linear;
+}
+
+.btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.btn--primary {
+  background: var(--signal);
+  border-color: var(--signal);
+  color: var(--white);
+}
+
+.btn--primary:hover {
+  background: var(--signal-dim);
+  border-color: var(--signal-dim);
+  color: var(--white);
+}
+
+/* 小标签 —— patch 面板上的丝印字 */
+.label {
+  font-family: var(--font-pixel);
+  -webkit-font-smoothing: none;
+  font-smooth: never;
+  font-size: var(--px-1);
+  line-height: 1.3333;
+  color: var(--grey-500);
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

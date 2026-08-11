@@ -1,0 +1,23 @@
+{
+  "name": "nodenodenode.net",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "连节社 — vvvv gamma 中文社区入口",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "font": "node scripts/subset-font.mjs",
+    "thumbs": "python3 scripts/fetch-thumbs.py",
+    "images": "python3 scripts/make-images.py",
+    "check:external": "node scripts/check-external.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.2.0",
+    "js-yaml": "^5.2.3"
+  },
+  "devDependencies": {
+    "subset-font": "^2.5.0"
+  }
+}

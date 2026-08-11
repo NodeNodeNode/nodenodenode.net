@@ -1,0 +1,280 @@
+---
+/**
+ * 一个视频系列。
+ *
+ * 分集列表用原生 <details> 折叠 —— 六个系列五十多集,全摊开页面就废了,
+ * 而 <details> 不需要一行 JS。第一个系列默认展开,给人看一眼是什么样子。
+ */
+import { filled, hasAsset } from '../lib/content.js'
+
+const { s, index } = Astro.props
+
+const biliUrl = (id) => `https://www.bilibili.com/video/${id}/`
+const ytUrl = (id) => `https://www.youtube.com/watch?v=${id}`
+
+// 封面:优先 B 站,整季不在 B 站时退到 YouTube 的封面。
+// 文件由 scripts/fetch-thumbs.py 按 BV 号 / videoId 命名抓到本地。
+const thumbOf = (id) => (filled(id) ? `/img/thumbs/${id}.jpg` : '')
+const cover =
+  s.episodes.map((e) => thumbOf(e.bilibili)).find(hasAsset) ??
+  s.episodes.map((e) => thumbOf(e.youtube)).find(hasAsset) ??
+  ''
+
+const num = String(index + 1).padStart(2, '0')
+const onBili = s.episodes.filter((e) => filled(e.bilibili)).length
+---
+
+<article class="sc">
+  <div class="sc__cover">
+    {
+      cover ? (
+        <img src={cover} alt="" width="240" height="135" loading="lazy" />
+      ) : (
+        <div class="sc__cover-empty dither" />
+      )
+    }
+  </div>
+
+  <div class="sc__body">
+    <div class="sc__head">
+      <span class="sc__num pixel">{num}</span>
+      <h3 class="sc__title pixel">{s.title}</h3>
+      {
+        filled(s.author_href) ? (
+          <a class="sc__author pixel" href={s.author_href} target="_blank" rel="noopener noreferrer">
+            {s.author}
+          </a>
+        ) : (
+          <span class="sc__author pixel">{s.author}</span>
+        )
+      }
+      <span class="sc__count pixel">{s.episodes.length} 集</span>
+    </div>
+
+    <p class="sc__note">{s.note}</p>
+
+    {
+      /* 整季都不在 B 站时说一声。墙内的人点开一排全是 YouTube
+         会很挫败,不如提前讲清楚 */
+      onBili === 0 && (
+        <p class="sc__warn pixel">⚠ 这一系列只在 YouTube 上,墙内需要自己想办法</p>
+      )
+    }
+
+    <details class="sc__eps" open={index === 0}>
+      <summary class="pixel">分集({s.episodes.length})</summary>
+      <ol class="sc__list">
+        {
+          s.episodes.map((e) => (
+            <li>
+              <span class="pin" />
+              <span class="sc__ep-title">{e.title}</span>
+              <span class="sc__links">
+                {filled(e.bilibili) && (
+                  <a class="pixel" href={biliUrl(e.bilibili)} target="_blank" rel="noopener noreferrer">
+                    B站
+                  </a>
+                )}
+                {filled(e.youtube) && (
+                  <a class="pixel sc__yt" href={ytUrl(e.youtube)} target="_blank" rel="noopener noreferrer">
+                    YT
+                  </a>
+                )}
+              </span>
+            </li>
+          ))
+        }
+      </ol>
+    </details>
+
+    {
+      filled(s.youtube_playlist) && (
+        <p class="sc__pl">
+          <a
+            class="pixel"
+            href={`https://www.youtube.com/playlist?list=${s.youtube_playlist}`}
+            target="_blank" rel="noopener noreferrer"
+          >
+            YouTube 播放列表 →
+          </a>
+        </p>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .sc {
+    border: var(--line);
+    background: var(--grey-200);
+    display: flex;
+    gap: var(--s3);
+    padding: var(--s2);
+  }
+
+  .sc__cover {
+    flex: none;
+    width: 240px;
+  }
+
+  .sc__cover img {
+    width: 240px;
+    height: 135px;
+    object-fit: cover;
+    border: var(--line);
+  }
+
+  .sc__cover-empty {
+    width: 240px;
+    height: 135px;
+    border: var(--line-soft);
+    background-color: var(--grey-100);
+  }
+
+  .sc__body {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .sc__head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--s1) var(--s2);
+  }
+
+  .sc__num {
+    font-size: var(--px-1);
+    color: var(--grey-500);
+  }
+
+  .sc__title {
+    font-size: var(--px-2);
+    margin-right: auto;
+  }
+
+  .sc__author {
+    font-size: var(--px-1);
+    color: var(--grey-500);
+  }
+
+  .sc__count {
+    font-size: var(--px-1);
+    color: var(--grey-500);
+    border: var(--line-soft);
+    padding: 2px var(--s1);
+  }
+
+  .sc__note {
+    margin-top: var(--s1);
+    color: var(--grey-700);
+    font-size: 15px;
+    line-height: 24px;
+    max-width: 62ch;
+  }
+
+  .sc__warn {
+    margin-top: var(--s1);
+    font-size: var(--px-1);
+    color: var(--ink);
+    background: var(--grey-100);
+    border: var(--line-soft);
+    padding: var(--s1);
+  }
+
+  .sc__eps {
+    margin-top: var(--s2);
+    border-top: var(--line-soft);
+  }
+
+  .sc__eps summary {
+    font-size: var(--px-1);
+    color: var(--grey-500);
+    cursor: pointer;
+    padding-block: var(--s1);
+    list-style: none;
+  }
+
+  .sc__eps summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* 自己画开合标记:▸ / ▾ 用两个方块表达,和节点母题一致 */
+  .sc__eps summary::before {
+    content: '+';
+    display: inline-block;
+    width: 16px;
+    color: var(--ink);
+  }
+
+  .sc__eps[open] summary::before {
+    content: '−';
+  }
+
+  .sc__eps summary:hover {
+    color: var(--signal);
+  }
+
+  .sc__list {
+    margin: 0 0 var(--s1);
+    padding: 0;
+    list-style: none;
+  }
+
+  .sc__list li {
+    display: flex;
+    align-items: center;
+    gap: var(--s1);
+    padding-block: 4px;
+    border-top: 1px solid var(--grey-100);
+  }
+
+  .sc__ep-title {
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--grey-700);
+    margin-right: auto;
+  }
+
+  .sc__links {
+    display: flex;
+    gap: var(--s1);
+    flex: none;
+  }
+
+  .sc__links a {
+    font-size: var(--px-1);
+    text-decoration: none;
+    color: var(--signal);
+    border-bottom: 1px solid var(--signal);
+  }
+
+  /* YouTube 淡化:墙内多半点不开,不该和 B 站抢注意力 */
+  .sc__links .sc__yt {
+    color: var(--grey-500);
+    border-bottom-color: var(--grey-400);
+  }
+
+  .sc__pl {
+    margin-top: var(--s1);
+  }
+
+  .sc__pl a {
+    font-size: var(--px-1);
+    color: var(--grey-500);
+  }
+
+  @media (max-width: 720px) {
+    .sc {
+      flex-direction: column;
+      gap: var(--s2);
+    }
+    .sc__cover,
+    .sc__cover img,
+    .sc__cover-empty {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+    }
+  }
+</style>

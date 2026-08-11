@@ -1,0 +1,18 @@
+# 社区作品。
+#
+# items 为空时整个板块自动隐藏 —— 空着的画廊比没有画廊更难看。
+# 缩略图同样必须自托管在 public/img/works/,不要外链别人的图床
+# (会挂,而且是替别人扛流量)。
+
+# 这一节的引导语
+intro: 社区成员用 vvvv gamma 做出来的东西。
+
+# TODO 攒够 3 个以上再放出来,不然网格会很空
+items: []
+# 格式:
+#   - title: 作品名
+#     author: 作者
+#     year: 2026
+#     href: https://...
+#     thumb: /img/works/xxx.png
+#     note: 一句话说明

@@ -1,0 +1,34 @@
+# 站点基本信息。改文案后记得跑 `npm run font` 重新生成字体子集。
+
+name: 连节社
+name_en: nodenodenode
+tagline: vvvv gamma 中文社区
+# 首屏那句话。写给一个刚听说 vvvv、不知道该从哪进的人看。
+intro: >-
+  vvvv gamma 是一个用来做实时图形、互动装置和现场演出的可视化编程环境。
+  连节社把散落在各处的中文教程、翻译文档和社群入口收在这一页,
+  你不需要先加群、先注册、先问人,就能找到下一步该点哪里。
+
+meta:
+  title: 连节社 — vvvv gamma 中文社区
+  description: >-
+    vvvv gamma 的中文社区入口。中文文档、视频教程、社群加入方式,都在这一页。
+  # OG 图放 public/img/,不引外部图床
+  og_image: /img/og.png
+
+hero:
+  cta_label: 加入社群
+  cta_href: '#community'
+  secondary_label: 先看教程
+  secondary_href: '#videos'
+
+# 页脚
+footer:
+  github: https://github.com/NodeNodeNode
+  # TODO 填一个长期有效的联系方式(邮箱或微信号),用于二维码过期时兜底
+  contact_label: ''
+  contact_href: ''
+  colophon: >-
+    本站为纯静态页面,不含统计脚本,不加载任何第三方资源。
+  font_credit: >-
+    标题字体 Fusion Pixel Font(缝合怪像素字体),SIL Open Font License 1.1。

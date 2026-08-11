@@ -1,0 +1,87 @@
+---
+/**
+ * 通用章节外壳。
+ *
+ * 节点图母题在这里落地:每个章节头部是一个"节点"——
+ * 左边一个方形端点(pin),一条 1px 连线横贯整幅,编号在线上。
+ * 章节之间由左侧一条竖线串起来,像 patch 里的一条数据流。
+ */
+const { id, num, title, latin } = Astro.props
+---
+
+<section id={id} class="sec">
+  <div class="wrap">
+    <header class="sec__head">
+      <div class="sec__wire">
+        <span class="pin"></span>
+        <span class="sec__num pixel">{num}</span>
+        <span class="sec__rule"></span>
+        <span class="sec__latin pixel">{latin}</span>
+      </div>
+      <h2 class="sec__title pixel">{title}</h2>
+    </header>
+    <slot />
+  </div>
+</section>
+
+<style>
+  .sec {
+    padding-block: var(--s8);
+    /* 左侧竖线:把所有章节串成一条链 */
+    position: relative;
+  }
+
+  .sec::before {
+    content: '';
+    position: absolute;
+    inset-block: 0;
+    left: max(var(--s3), calc(50% - var(--content-max) / 2 + var(--s3)));
+    width: 1px;
+    background: var(--grey-400);
+  }
+
+  .sec__head {
+    margin-bottom: var(--s6);
+  }
+
+  .sec__wire {
+    display: flex;
+    align-items: center;
+    gap: var(--s2);
+    /* 端点要压在竖线上,所以整行向左顶出 4px(pin 宽的一半) */
+    margin-left: -4px;
+  }
+
+  .sec__num {
+    font-size: var(--px-1);
+    color: var(--grey-500);
+  }
+
+  .sec__rule {
+    flex: 1;
+    height: 1px;
+    background: var(--grey-400);
+  }
+
+  .sec__latin {
+    font-size: var(--px-1);
+    color: var(--grey-500);
+    text-transform: uppercase;
+  }
+
+  .sec__title {
+    font-size: var(--px-3);
+    margin-top: var(--s3);
+    margin-left: var(--s3);
+    color: var(--ink);
+  }
+
+  @media (max-width: 720px) {
+    .sec {
+      padding-block: var(--s6);
+    }
+    .sec__title {
+      font-size: var(--px-2);
+    }
+  }
+</style>

@@ -1,0 +1,73 @@
+---
+const { item } = Astro.props
+
+// 中文条目要显眼,外文条目只是标一下 —— 别让人点进去才发现要啃外语
+const LANG = { zh: '中文', en: 'EN', de: '德文' }
+const lang = LANG[item.lang] ?? item.lang
+---
+
+<li class="rr">
+  <a class="rr__link" href={item.href} target="_blank" rel="noopener noreferrer">
+    <span class="pin"></span>
+    <span class="rr__title pixel">{item.title}</span>
+    <span class:list={['rr__lang', 'pixel', `rr__lang--${item.lang}`]}>{lang}</span>
+  </a>
+  <p class="rr__note">{item.note}</p>
+</li>
+
+<style>
+  .rr {
+    border-top: var(--line-soft);
+    padding-block: var(--s2);
+  }
+
+  .rr:last-child {
+    border-bottom: var(--line-soft);
+  }
+
+  .rr__link {
+    display: flex;
+    align-items: center;
+    gap: var(--s2);
+    text-decoration: none;
+  }
+
+  .rr__title {
+    font-size: var(--px-1);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-color: var(--grey-400);
+  }
+
+  .rr__link:hover .rr__title {
+    text-decoration-color: var(--signal);
+  }
+
+  .rr__link:hover .pin {
+    background: var(--signal);
+  }
+
+  /* 语言标记要明显 —— 让人一眼看出哪些要啃英文,别点进去才发现 */
+  .rr__lang {
+    font-size: var(--px-1);
+    padding: 2px var(--s1);
+    border: var(--line-soft);
+    color: var(--grey-500);
+    margin-left: auto;
+    flex: none;
+  }
+
+  .rr__lang--zh {
+    color: var(--ink);
+    border-color: var(--ink);
+  }
+
+  .rr__note {
+    margin-top: var(--s1);
+    margin-left: var(--s3);
+    color: var(--grey-500);
+    font-size: 15px;
+    line-height: 24px;
+    max-width: 64ch;
+  }
+</style>

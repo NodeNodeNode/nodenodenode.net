@@ -1,0 +1,122 @@
+---
+/**
+ * 社群入口卡片。
+ *
+ * 「图片存不存在」由 index.astro 的过滤器负责 —— 图没放进来的 qr 条目
+ * 根本不会渲染到这里。所以这里不再画占位块:两处各判一次,迟早会走岔。
+ */
+import { filled } from '../lib/content.js'
+
+const { entry, fallback } = Astro.props
+---
+
+<article class:list={['cc', entry.primary && 'cc--primary']}>
+  <div class="cc__head">
+    <span class:list={['pin', entry.primary && 'pin--signal']}></span>
+    <h3 class="cc__title pixel">{entry.title}</h3>
+    <span class="cc__audience pixel">{entry.audience}</span>
+  </div>
+
+  <p class="cc__note">{entry.note}</p>
+
+  {
+    entry.kind === 'qr' && (
+      <div class="cc__qr">
+        <img src={entry.image} alt={`${entry.title}二维码`} width="180" height="180" />
+        {filled(fallback) && <p class="cc__fallback">{fallback}</p>}
+      </div>
+    )
+  }
+
+  {
+    entry.kind === 'link' && filled(entry.href) && (
+      <a class="btn pixel" href={entry.href} target="_blank" rel="noopener noreferrer">
+        打开 {entry.title}
+      </a>
+    )
+  }
+
+  {
+    entry.kind === 'text' && filled(entry.value) && (
+      <p class="cc__value pixel">{entry.value}</p>
+    )
+  }
+</article>
+
+<style>
+  .cc {
+    border: var(--line);
+    background: var(--grey-200);
+    padding: var(--s3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s2);
+  }
+
+  /* 主入口视觉上要压过其他项 —— 这一页的目的就是把人送进微信群 */
+  .cc--primary {
+    background: var(--white);
+    border-width: 2px;
+  }
+
+  .cc__head {
+    display: flex;
+    align-items: center;
+    gap: var(--s1);
+    flex-wrap: wrap;
+  }
+
+  .cc__title {
+    font-size: var(--px-2);
+    margin-right: auto;
+  }
+
+  .cc__audience {
+    font-size: var(--px-1);
+    color: var(--grey-500);
+    border: var(--line-soft);
+    padding: 2px var(--s1);
+  }
+
+  .cc__note {
+    color: var(--grey-700);
+    font-size: 15px;
+    line-height: 24px;
+    margin: 0;
+  }
+
+  .cc__qr {
+    margin-top: auto;
+  }
+
+  .cc__qr img {
+    width: 180px;
+    height: 180px;
+    border: var(--line);
+    image-rendering: pixelated; /* 二维码是位图,插值会让它更难扫 */
+  }
+
+
+  .cc__fallback {
+    margin-top: var(--s1);
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--grey-500);
+    max-width: 32ch;
+  }
+
+  .cc__value {
+    font-family: var(--font-mono);
+    font-size: 18px;
+    border: var(--line);
+    background: var(--paper);
+    padding: var(--s1) var(--s2);
+    user-select: all; /* 让人一点就能整段复制 */
+    align-self: flex-start;
+  }
+
+  .cc .btn {
+    align-self: flex-start;
+    margin-top: auto;
+  }
+</style>

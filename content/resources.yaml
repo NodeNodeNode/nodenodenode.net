@@ -1,0 +1,83 @@
+# 学习资源。按"新人从上往下走一遍就能上手"的顺序排,不要按重要性排。
+#
+# lang: zh / en / de  → 会在条目上打一个语言标记。中文资源是本站的价值
+#                       所在,外文的也列,但要让人一眼看出哪些要啃外语。
+
+groups:
+  - id: start
+    title: 从这里开始
+    items:
+      - title: 下载 vvvv gamma
+        href: https://vvvv.org/download
+        lang: en
+        note: 官方下载。个人学习和非商业用途免费。
+
+      - title: 灰皮书 · 中文版
+        href: https://thegraybook.nodenodenode.net/
+        lang: zh
+        note: >-
+          官方文档 the gray book 的中文翻译站,覆盖编辑器、VL 语言特性
+          和第三方库的用法。持续翻译中。
+
+      - title: 中文文档合集
+        href: https://lianjieshe.notion.site/lianjieshe/Gamma-c1eff39c7cd140f4adfe0fad71c15080
+        lang: zh
+        note: 早期整理在 Notion 上的中文资料,部分内容尚未迁移到灰皮书。
+
+  - id: reference
+    title: 深入查阅
+    items:
+      - title: the gray book(英文原版)
+        href: https://thegraybook.vvvv.org/
+        lang: en
+        note: 官方文档。中文版没覆盖到的部分,回这里查。
+
+      - title: vvvv 官方站
+        href: https://vvvv.org/
+        lang: en
+        note: 版本发布、案例展示、活动信息。
+
+      - title: 官方论坛
+        href: https://forum.vvvv.org/
+        lang: en
+        note: 疑难杂症的最终去处,开发者本人也在上面回帖。
+
+  # 购买链接只放豆瓣:页面稳定中立,上面自带各平台入口。
+  # 不放孔夫子(是某一本二手书的具体 listing,卖掉就 404)和天猫
+  # (带一长串追踪参数)。也不放书封图 —— 那是出版社的版权素材。
+  - id: books
+    title: 书
+    items:
+      - title: 原型界面—交互草图与 vvvv
+        href: https://book.douban.com/subject/36180600/
+        lang: zh
+        note: >-
+          目前唯一的 vvvv 中文实体书,而且是这本书在全世界唯一的译本 ——
+          原著除德文外只有中文版。南京艺术学院刘彦副教授译,江苏凤凰科学
+          技术出版社 2022 年 5 月出版,ISBN 978-7-5713-2576-3。内容覆盖
+          vvvv、Arduino、各种追踪方式和显示技术,偏互动装置的硬件侧,
+          和线上教程正好互补。
+
+      - title: Prototyping Interfaces(德文原版官网)
+        href: https://prototypinginterfaces.com/
+        lang: de
+        note: >-
+          原著 Jan Barth、Roman Stefan Grasy 等编著,336 页,只有德文版。
+          但这个网站不看德文也值得进:书里每个实例的 vvvv patch 文件都能
+          免费下载,还附了各例子需要的 Arduino 驱动和软件链接。
+          手上有中文版的话,配着这里的源文件看效率高得多。
+
+  - id: contribute
+    title: 一起做点事
+    items:
+      - title: 参与文档翻译
+        href: https://github.com/NodeNodeNode/thegraybookcn
+        lang: zh
+        note: >-
+          翻译永远缺人手。认领一页、改一个错字都算数,
+          不需要先证明自己懂 vvvv。
+
+      - title: GitHub 组织
+        href: https://github.com/NodeNodeNode
+        lang: zh
+        note: 社区的仓库都在这里,包括本站源码。

@@ -1,0 +1,99 @@
+---
+import { site, filled } from '../lib/content.js'
+const year = new Date().getFullYear()
+---
+
+<footer class="ftr">
+  <div class="wrap ftr__in">
+    <div class="ftr__col">
+      <p class="ftr__name pixel">{site.name}</p>
+      <p class="ftr__latin pixel">{site.name_en}</p>
+    </div>
+
+    <div class="ftr__col">
+      <ul class="ftr__links">
+        <li><a class="pixel" href={site.footer.github} target="_blank" rel="noopener noreferrer">GITHUB</a></li>
+        {
+          filled(site.footer.contact_href) && (
+            <li>
+              <a class="pixel" href={site.footer.contact_href} target="_blank" rel="noopener noreferrer">
+                {site.footer.contact_label || '联系'}
+              </a>
+            </li>
+          )
+        }
+      </ul>
+    </div>
+
+    <div class="ftr__col ftr__col--wide">
+      <p class="ftr__fine">{site.footer.colophon}</p>
+      <p class="ftr__fine">{site.footer.font_credit}</p>
+      <p class="ftr__fine">© {year} {site.name}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .ftr {
+    border-top: var(--line);
+    background: var(--grey-200);
+    padding-block: var(--s6);
+    margin-top: var(--s8);
+  }
+
+  .ftr__in {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s6);
+  }
+
+  .ftr__col--wide {
+    margin-left: auto;
+    max-width: 48ch;
+  }
+
+  .ftr__name {
+    font-size: var(--px-2);
+  }
+
+  .ftr__latin {
+    font-size: var(--px-1);
+    color: var(--grey-500);
+  }
+
+  .ftr__links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s1);
+  }
+
+  .ftr__links a {
+    font-size: var(--px-1);
+    text-decoration: none;
+    color: var(--grey-700);
+  }
+
+  .ftr__links a:hover {
+    color: var(--signal);
+  }
+
+  .ftr__fine {
+    font-size: 13px;
+    line-height: 20px;
+    color: var(--grey-500);
+  }
+
+  .ftr__fine + .ftr__fine {
+    margin-top: var(--s1);
+  }
+
+  @media (max-width: 720px) {
+    .ftr__in {
+      gap: var(--s3);
+      flex-direction: column;
+    }
+    .ftr__col--wide {
+      margin-left: 0;
+    }
+  }
+</style>

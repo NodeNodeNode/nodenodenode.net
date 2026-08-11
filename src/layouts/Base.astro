@@ -1,0 +1,55 @@
+---
+import '../styles/tokens.css'
+import { site } from '../lib/content.js'
+
+const { title = site.meta.title, description = site.meta.description } = Astro.props
+const canonical = new URL(Astro.url.pathname, Astro.site).href
+---
+
+<!doctype html>
+<html lang="zh-Hans">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- 字体自托管并 preload。这是首屏唯一的外部资源请求,
+         早一个 RTT 拿到就能避免标题闪一下系统字体。 -->
+    <link
+      rel="preload"
+      href="/fonts/fusion-pixel-12-subset.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(site.meta.og_image, Astro.site).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/img/logo.png" type="image/png" />
+    <meta name="theme-color" content="#d8d8d8" />
+  </head>
+
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  /* 字体子集由 `npm run font` 生成。
+     没有 woff 回退:不支持 woff2 的浏览器早已绝迹,多一个格式就多一份体积。 */
+  @font-face {
+    font-family: 'Fusion Pixel 12';
+    src: url('/fonts/fusion-pixel-12-subset.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>

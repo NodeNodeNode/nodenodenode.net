@@ -1,0 +1,252 @@
+---
+import Base from '../layouts/Base.astro'
+import Header from '../components/Header.astro'
+import Hero from '../components/Hero.astro'
+import Section from '../components/Section.astro'
+import CommunityCard from '../components/CommunityCard.astro'
+import ResourceRow from '../components/ResourceRow.astro'
+import SeriesCard from '../components/SeriesCard.astro'
+import WorkTile from '../components/WorkTile.astro'
+import Footer from '../components/Footer.astro'
+import { community, resources, videos, works, about, filled, hasAsset } from '../lib/content.js'
+
+// 没填内容的入口不渲染 —— 死链接比少一个入口更伤。
+// qr 也要判:图片没放进来就整条隐藏,否则页面上会永远挂着一块
+// "二维码待补"的占位,比没有这个入口更难看。
+// info 类只有文字,有 note 就渲染。
+const entries = community.entries.filter((e) => {
+  if (e.kind === 'link') return filled(e.href)
+  if (e.kind === 'text') return filled(e.value)
+  if (e.kind === 'qr') return hasAsset(e.image)
+  return filled(e.note)
+})
+
+const hasWorks = Array.isArray(works.items) && works.items.length > 0
+const hasVideos = Array.isArray(videos.series) && videos.series.length > 0
+---
+
+<Base>
+  <Header />
+  <Hero />
+
+  <main>
+    <Section id="community" num="01" title="社群入口" latin="community">
+      <div class="cards">
+        {entries.map((e) => <CommunityCard entry={e} fallback={community.qr_fallback} />)}
+      </div>
+
+      <div class="upstream">
+        <p class="label">官方社区(英文)</p>
+        <ul class="upstream__list">
+          {
+            community.upstream.map((u) => (
+              <li>
+                <a class="pixel" href={u.href} target="_blank" rel="noopener noreferrer">
+                  {u.title}
+                </a>
+                <span class="upstream__note">{u.note}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </Section>
+
+    <Section id="resources" num="02" title="学习资源" latin="resources">
+      {
+        resources.groups.map((g) => (
+          <div class="rgroup">
+            <h3 class="rgroup__title label">{g.title}</h3>
+            <ul>
+              {g.items.map((item) => (
+                <ResourceRow item={item} />
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </Section>
+
+    {
+      hasVideos && (
+        <Section id="videos" num="03" title="视频教程" latin="tutorials">
+          <div class="series">
+            {videos.series.map((s, i) => (
+              <SeriesCard s={s} index={i} />
+            ))}
+          </div>
+          {filled(videos.channel_bilibili) && (
+            <p class="more">
+              <a class="btn pixel" href={videos.channel_bilibili} target="_blank" rel="noopener noreferrer">
+                B 站全部视频
+              </a>
+            </p>
+          )}
+        </Section>
+      )
+    }
+
+    {
+      hasWorks && (
+        <Section id="works" num="04" title="作品展示" latin="showcase">
+          <p class="lead">{works.intro}</p>
+          <div class="grid grid--works">
+            {works.items.map((item) => (
+              <WorkTile item={item} />
+            ))}
+          </div>
+        </Section>
+      )
+    }
+
+    <Section id="about" num={hasWorks ? '05' : '04'} title={about.title} latin="about">
+      <div class="prose">
+        {about.body.map((p) => <p>{p}</p>)}
+      </div>
+
+      <div class="help">
+        <p class="label">需要人手</p>
+        <ul class="help__list">
+          {
+            about.help_wanted.map((h) => (
+              <li>
+                <span class="pin" /> {h}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </Section>
+  </main>
+
+  <Footer />
+</Base>
+
+<style>
+  main {
+    /* 章节的左侧竖线要连续,所以章节之间不留空隙 */
+    display: block;
+  }
+
+  /* 上限 424px:Slack/QQ 还没填时这里只有一张卡,用 1fr 会让它横铺整幅,
+     一个 180px 的二维码摆在 1000px 宽的框里很难看。给个上限,少的时候
+     靠左排,多的时候自然成网格。 */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(288px, 424px));
+    justify-content: start;
+    gap: var(--s3);
+    margin-left: var(--s3);
+  }
+
+  .upstream {
+    margin-top: var(--s6);
+    margin-left: var(--s3);
+    border-top: var(--line-soft);
+    padding-top: var(--s2);
+  }
+
+  .upstream__list {
+    margin-top: var(--s2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s1);
+  }
+
+  .upstream__list a {
+    font-size: var(--px-1);
+    margin-right: var(--s2);
+  }
+
+  .upstream__note {
+    color: var(--grey-500);
+    font-size: 14px;
+  }
+
+  .rgroup {
+    margin-left: var(--s3);
+  }
+
+  .rgroup + .rgroup {
+    margin-top: var(--s6);
+  }
+
+  .rgroup__title {
+    margin-bottom: var(--s2);
+  }
+
+  /* 系列是整幅宽的横条,不是网格 —— 分集标题很长,窄列会折得很难看 */
+  .series {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s3);
+    margin-left: var(--s3);
+  }
+
+  .grid {
+    display: grid;
+    gap: var(--s3);
+    margin-left: var(--s3);
+  }
+
+  .grid--works {
+    grid-template-columns: repeat(auto-fill, minmax(288px, 1fr));
+  }
+
+  .more {
+    margin-top: var(--s4);
+    margin-left: var(--s3);
+  }
+
+  .lead {
+    margin-left: var(--s3);
+    margin-bottom: var(--s3);
+    color: var(--grey-700);
+  }
+
+  .prose {
+    margin-left: var(--s3);
+    max-width: 68ch;
+  }
+
+  .prose p + p {
+    margin-top: var(--s2);
+  }
+
+  .prose p {
+    color: var(--grey-700);
+  }
+
+  .help {
+    margin-top: var(--s6);
+    margin-left: var(--s3);
+    border-top: var(--line-soft);
+    padding-top: var(--s2);
+  }
+
+  .help__list {
+    margin-top: var(--s2);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s1);
+    color: var(--grey-700);
+  }
+
+  .help__list .pin {
+    margin-right: var(--s1);
+  }
+
+  @media (max-width: 720px) {
+    .cards,
+    .series,
+    .upstream,
+    .rgroup,
+    .grid,
+    .more,
+    .lead,
+    .prose,
+    .help {
+      margin-left: var(--s2);
+    }
+  }
+</style>

@@ -1,0 +1,72 @@
+---
+import { hasAsset } from '../lib/content.js'
+
+const { item } = Astro.props
+---
+
+<article class="wt">
+  <a class="wt__link" href={item.href} target="_blank" rel="noopener noreferrer">
+    <div class="wt__thumb">
+      {
+        hasAsset(item.thumb) ? (
+          <img src={item.thumb} alt="" width="360" height="240" loading="lazy" />
+        ) : (
+          <div class="wt__thumb-empty dither"></div>
+        )
+      }
+    </div>
+    <h3 class="wt__title pixel">{item.title}</h3>
+  </a>
+  <p class="wt__meta pixel">
+    {item.author}{item.year ? ` · ${item.year}` : ''}
+  </p>
+  {item.note && <p class="wt__note">{item.note}</p>}
+</article>
+
+<style>
+  .wt__link {
+    text-decoration: none;
+    display: block;
+  }
+
+  .wt__thumb {
+    border: var(--line);
+    aspect-ratio: 3 / 2;
+    background: var(--grey-100);
+    overflow: hidden;
+  }
+
+  .wt__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .wt__thumb-empty {
+    width: 100%;
+    height: 100%;
+    background-color: var(--grey-100);
+  }
+
+  .wt__title {
+    font-size: var(--px-1);
+    margin-top: var(--s2);
+  }
+
+  .wt__link:hover .wt__title {
+    color: var(--signal);
+  }
+
+  .wt__meta {
+    font-size: var(--px-1);
+    color: var(--grey-500);
+    margin-top: 4px;
+  }
+
+  .wt__note {
+    margin-top: var(--s1);
+    color: var(--grey-500);
+    font-size: 14px;
+    line-height: 20px;
+  }
+</style>

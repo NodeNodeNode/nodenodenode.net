@@ -1,0 +1,88 @@
+---
+import { site } from '../lib/content.js'
+
+const nav = [
+  { label: '社群', href: '#community' },
+  { label: '资源', href: '#resources' },
+  { label: '教程', href: '#videos' },
+  { label: '关于', href: '#about' },
+]
+---
+
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a class="hdr__brand" href="/">
+      <img
+        class="hdr__logo"
+        src="/img/logo.png"
+        width="42"
+        height="42"
+        alt=""
+        aria-hidden="true"
+      />
+      <span class="hdr__name pixel">{site.name}</span>
+    </a>
+    <nav class="hdr__nav" aria-label="主导航">
+      {nav.map((n) => <a class="pixel" href={n.href}>{n.label}</a>)}
+    </nav>
+  </div>
+</header>
+
+<style>
+  .hdr {
+    border-bottom: var(--line);
+    background: var(--paper);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .hdr__in {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s3);
+    height: var(--s6);
+  }
+
+  .hdr__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--s1);
+    text-decoration: none;
+  }
+
+  /* logo 是 168px 的位图。只允许整数分之一缩放 —— 原生点阵是 21x21,
+     168→42 正好是每格 2px。取 40px 就成了每格 1.9px 的分数,
+     即使开了 pixelated 也会宽窄不齐 */
+  .hdr__logo {
+    image-rendering: pixelated;
+    width: 42px;
+    height: 42px;
+  }
+
+  .hdr__name {
+    font-size: var(--px-1);
+  }
+
+  .hdr__nav {
+    display: flex;
+    gap: var(--s3);
+  }
+
+  .hdr__nav a {
+    font-size: var(--px-1);
+    text-decoration: none;
+    color: var(--grey-500);
+  }
+
+  .hdr__nav a:hover {
+    color: var(--signal);
+  }
+
+  @media (max-width: 560px) {
+    .hdr__nav {
+      gap: var(--s2);
+    }
+  }
+</style>

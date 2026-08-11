@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+
+# 源字体 7MB,不进仓库。缺失时 scripts/subset-font.mjs 会提示去哪下载。
+# 子集产物 public/fonts/*.woff2 是要 commit 的。
+vendor/font/
+
+.DS_Store
+.env
+.vercel

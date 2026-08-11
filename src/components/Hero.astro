@@ -1,0 +1,138 @@
+---
+import { site } from '../lib/content.js'
+---
+
+<section class="hero">
+  <div class="wrap hero__in">
+    <div class="hero__mark">
+      <img
+        src="/img/logo.png"
+        width="168"
+        height="168"
+        alt={`${site.name} logo`}
+        class="hero__logo"
+      />
+    </div>
+
+    <div class="hero__body">
+      <p class="hero__tagline pixel">{site.tagline}</p>
+      <h1 class="hero__title pixel">{site.name}</h1>
+      <p class="hero__intro">{site.intro}</p>
+
+      <div class="hero__actions">
+        <a class="btn btn--primary pixel" href={site.hero.cta_href}>
+          {site.hero.cta_label}
+        </a>
+        <a class="btn pixel" href={site.hero.secondary_href}>
+          {site.hero.secondary_label}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 装饰性连线:从 hero 引出一条竖线,接到下面第一个章节 -->
+  <div class="hero__wire" aria-hidden="true"></div>
+</section>
+
+<style>
+  .hero {
+    border-bottom: var(--line);
+    padding-block: var(--s12) var(--s8);
+    position: relative;
+    /* 首屏的材质感。比 .dither 更淡(1px/10px ≈ 10%),因为这块面积很大,
+       而且正文压在上面 —— 密一点就立刻变成视觉噪音 */
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--grey-400) 0 1px,
+      transparent 1px 10px
+    );
+  }
+
+  /* 纹理只留右上角一角。渐变收得早一点,免得整个右半边都是斜纹 */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      160deg,
+      var(--paper) 0%,
+      var(--paper) 72%,
+      transparent 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero__in {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--s8);
+  }
+
+  .hero__mark {
+    flex: none;
+    border: var(--line);
+    background: var(--void);
+  }
+
+  /* 168px 原生尺寸(21x8),1:1 显示,不缩放 —— 位图放大缩小都会脏 */
+  .hero__logo {
+    image-rendering: pixelated;
+    display: block;
+    width: 168px;
+    height: 168px;
+  }
+
+  .hero__body {
+    max-width: 56ch;
+  }
+
+  .hero__tagline {
+    font-size: var(--px-1);
+    color: var(--grey-500);
+    text-transform: uppercase;
+  }
+
+  .hero__title {
+    font-size: var(--px-4);
+    margin-block: var(--s2);
+  }
+
+  .hero__intro {
+    color: var(--grey-700);
+    margin-bottom: var(--s4);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2);
+  }
+
+  .hero__wire {
+    position: absolute;
+    left: max(var(--s3), calc(50% - var(--content-max) / 2 + var(--s3)));
+    bottom: 0;
+    width: 1px;
+    height: var(--s6);
+    background: var(--grey-400);
+  }
+
+  @media (max-width: 720px) {
+    .hero {
+      padding-block: var(--s6) var(--s6);
+    }
+    .hero__in {
+      flex-direction: column;
+      gap: var(--s4);
+    }
+    /* 168 → 84 是整数分之一(每格 4px),像素不会糊 */
+    .hero__logo {
+      width: 84px;
+      height: 84px;
+    }
+    .hero__title {
+      font-size: var(--px-3);
+    }
+  }
+</style>

@@ -1,0 +1,76 @@
+# 社群入口 —— 这一节是整个页面的核心。
+#
+# 每一项都要诚实说明它适合谁:墙内用户和海外用户能用的东西不一样,
+# 含糊其辞只会让人白折腾一遍。
+#
+# kind: qr    → 显示二维码图片(图片必须自托管在 public/img/,绝不外链)
+# kind: link  → 显示一个按钮链接
+# kind: text  → 只显示可复制的文本(比如 QQ 群号)
+# kind: info  → 只有说明,没有任何可点的东西。用于"这个入口暂时进不去"
+#               这类情况 —— 与其把条目删掉让人以为不存在,不如讲清楚现状
+
+# 这句兜底文案显示在二维码下面。
+qr_fallback: 扫不上或者加不上,按页脚的联系方式找我。
+
+# 页面上不放微信入口。原因是技术性的,不是懒:
+#
+#   * 微信**群**二维码有效期只有 7 天,且扫满 200 次即失效 —— 静态站要
+#     用它就得每周手动换图,换晚了就是死链,而且没有任何提醒。
+#   * 个人号二维码倒是长期有效,但等于把私人微信永久公开在互联网上。
+#
+# 所以聊天走 Discord,墙内的人走 GitHub issue。想进微信群的在这两处
+# 说一声即可 —— 群还在,只是不把码摆在公开页面上。
+
+entries:
+  - id: wechat
+    kind: info
+    title: 微信群
+    audience: 已满员
+    note: >-
+      群已经满员。微信的规则是超过 200 人之后就不能再扫码进群,
+      只能由群内成员邀请 —— 所以如果你认识群里的人,直接让他拉你。
+      不认识也没关系,来 Discord 或者 GitHub 说一声。
+
+  - id: discord
+    kind: link
+    title: Discord
+    audience: 随便加
+    #
+    # 已确认「永不过期」(2026-08-11 用 Discord API 验过)。
+    # 换链接时务必再验一次 —— Discord 默认是 30 天过期,过期后页面上
+    # 这个按钮会静默变成死链,不会有任何通知:
+    #   curl -s "https://discord.com/api/v10/invites/<邀请码>?with_expiration=true"
+    # 返回里 expires_at 必须是 null。
+    #
+    href: https://discord.gg/yBWCJQQ4Pq
+    note: >-
+      频道分区、语音、历史消息都比微信群好用,而且不像微信群有 200 人上限。
+      服务器刚建起来,还很空,想来就来。墙内直连一般上不去,得自己有办法。
+    primary: true
+
+  - id: github
+    kind: link
+    title: GitHub
+    audience: 墙内也能开
+    href: https://github.com/NodeNodeNode
+    note: >-
+      社区的仓库都在这里,包括这个站本身。开 issue 是最不依赖运气的
+      联系方式 —— 不用翻墙、不会过期、公开可查。想进微信群、想参与翻译、
+      发现站上哪里写错了,都可以在这里说。
+
+  - id: qq
+    kind: text
+    title: QQ 群
+    audience: 墙内备选
+    # TODO 有群就填群号,留空则该项自动隐藏
+    value: ''
+    note: 习惯用 QQ 的话走这里,内容和微信群大致同步。
+
+# 官方社区(英文),放在自己的入口下面作为延伸
+upstream:
+  - title: vvvv 官方论坛
+    href: https://forum.vvvv.org/
+    note: 英文。遇到真正的技术难题,这里能找到开发者本人。
+  - title: vvvv 官方站
+    href: https://vvvv.org/
+    note: 英文。发布公告、案例展示、活动信息。

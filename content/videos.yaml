@@ -1,0 +1,215 @@
+# 视频教程 —— 按系列组织,不是一堆散片。
+#
+# 规则:
+# * **B 站优先。** 每一集的主链接是 B 站,YouTube 作次要。墙内点不开
+#   YouTube 是常态,主链接指过去等于没有。
+# * **绝不用 iframe 嵌入,绝不引 B 站/YouTube 图床。** 封面跑
+#   `npm run thumbs` 抓到本地,按 BV 号命名,不用手写路径。
+# * `bilibili` / `youtube` 填**裸 ID**(BV 号 / YouTube videoId),不填完整
+#   网址 —— 组件负责拼 URL,这样以后换域名格式只改一处。
+# * 两个字段都可以留空:只在一个平台有的集数很常见,组件会自动只显示
+#   有的那个。
+#
+# 顺序 = 建议的学习顺序,不是发布顺序。想调整直接挪条目。
+
+channel_bilibili: https://space.bilibili.com/19207397
+channel_youtube: https://www.youtube.com/channel/UCSJuEFRlfo11WDbeWFcFZVg
+
+series:
+  - id: intro
+    title: 中文基础入门
+    author: 连节社
+    note: 完全没碰过 vvvv 的话从这里开始。装好软件,搞清楚节点和数据流是怎么回事。
+    youtube_playlist: PLmQg0g9uXi4_hAUHGpW43qO-oujyPIruF
+    episodes:
+      - title: 安装与界面
+        bilibili: BV1X3411v77q
+        youtube: cNfQdcVGK8Y
+      - title: VL 中的基本概念
+        bilibili: BV1F3411e7T6
+        youtube: mdiNQ8pnp48
+      - title: 到底什么是节点?
+        bilibili: BV1qR4y137fJ
+        youtube: eEI1YF9JiKM
+      - title: 互动小程序 hello world 1
+        bilibili: BV1rS4y1f7zk
+        youtube: qzWrWzyOx1s
+      - title: 互动小程序 hello world 2
+        bilibili: BV1AZ4y1Q7Ue
+        youtube: wt1JcclBed0
+
+  - id: basics
+    title: 基础节点介绍
+    author: 连节社
+    note: 一个一个把常用节点讲清楚 —— 渲染窗口、文字、视频、IMGUI 界面。
+    youtube_playlist: PLmQg0g9uXi4_SAnaI-Gs-X-HvgQkBhpCV
+    episodes:
+      - title: Renderer(Skia)
+        bilibili: BV1AV4y1a7yU
+        youtube: ZGnuVKH6r-4
+      - title: Skia 2D 渲染库
+        bilibili: ''
+        youtube: jqqrD4DmjkI
+      - title: VideoPlayer 视频播放
+        bilibili: BV1tm4y1Y7Av
+        youtube: l1RhzuZNXmg
+      - title: Spread 铺展与 For 循环
+        bilibili: ''
+        youtube: XDnfC6leIzA
+      - title: 跳跃的文字 1
+        bilibili: BV1kN411S7nk
+        youtube: 2RtpXaJHoMA
+      - title: 跳跃的文字 2
+        bilibili: BV13s4y167Sa
+        youtube: cbW6DO238UU
+      - title: 跳跃的文字 3
+        bilibili: BV1Xh4y177mZ
+        youtube: WIOM_-RB4ks
+      - title: 跳跃的文字 4 · 对象化
+        bilibili: BV1Zh4y177Gr
+        youtube: IH0cOMnhgsk
+      - title: IMGUI 与 Channel 1
+        bilibili: BV1mx4y1o79L
+        youtube: 61H3C0Rb9jo
+      - title: IMGUI 与 Channel 2
+        bilibili: BV1Jz4y177ht
+        youtube: E6vYptvOqQc
+
+  - id: challenge
+    title: 可视化编程的挑战
+    author: 连节社
+    note: >-
+      写惯代码的人最容易卡住的几个地方:if 怎么写、循环怎么写、类和实例
+      在节点里长什么样。
+    youtube_playlist: PLmQg0g9uXi4-F9moVtpI2ohVXn_EAO9pl
+    episodes:
+      - title: 如何实现 if 条件逻辑
+        bilibili: ''
+        youtube: EjyYbXLUW_0
+      - title: For 循环是如何实现的
+        bilibili: ''
+        youtube: S8X1_bMqMFo
+      - title: ForEach 的强大魔力
+        bilibili: ''
+        youtube: eSII6iZwRTg
+      - title: 类和实例
+        bilibili: ''
+        youtube: 5uDTK3yerTE
+      - title: 类和实例 2 · 子弹系统
+        bilibili: ''
+        youtube: yKB_-JDHco0
+
+  - id: brick
+    title: 做一个弹砖块小游戏
+    author: 连节社
+    note: 十集从零做完一个完整的小游戏。学完基础之后拿这个练手最合适。
+    youtube_playlist: PLmQg0g9uXi49oVjSEV0tPZuWHtz4GiCgJ
+    episodes:
+      - title: 1 · 游戏效果介绍
+        bilibili: BV1dm4y1S7fk
+        youtube: Wpw-bNBEp1Q
+      - title: 2 · 建立小球对象
+        bilibili: BV1Kr4y1v7WX
+        youtube: jcVREsZTaA8
+      - title: 3 · 让小球移动反弹
+        bilibili: BV1z34y1q7y4
+        youtube: Pa7ETioHNP0
+      - title: 3.1 · 番外:快速建立多个小球
+        bilibili: BV1EP4y1E7wC
+        youtube: Xk3uNLAKcQc
+      - title: 4 · 创建反弹板子
+        bilibili: BV1DY411a77b
+        youtube: Icnx55tvGq8
+      - title: 5 · 思考程序的结构
+        bilibili: BV1cR4y1G7zC
+        youtube: J5KIQxu95zw
+      - title: 6 · 控制反弹角度
+        bilibili: BV1L3411e7wN
+        youtube: hnW1ePOELS0
+      - title: 7 · 建立砖块对象
+        bilibili: BV1kS4y1Z7Ph
+        youtube: 1u3tLf41eHE
+      - title: 8 · 处理碰撞
+        bilibili: BV1rP4y1E7uL
+        youtube: iRQSapVuPEM
+      - title: 9 · 整理游戏,完结
+        bilibili: BV1JF411v7uA
+        youtube: ''
+
+  - id: happy
+    title: 快乐小组分享会
+    author: 连节社 与朋友们
+    note: >-
+      每周一次的线上分享,时长偏长,内容偏深。有 Clone、Ink 等社区里的人
+      来讲自己的东西,适合有点基础之后来看。
+    youtube_playlist: PLmQg0g9uXi4_QcpVtGCG4EIXrbiVPf9Py
+    episodes:
+      - title: 第一周 · 一汪池塘,Class 与 Record
+        bilibili: ''
+        youtube: 70Jzi_-c338
+      - title: 第二周 · CLONEMIX,把 Stride 场景引入 gamma
+        bilibili: BV18r4y1J776
+        youtube: zVyl1K1yH4U
+      - title: 第三周 · 分形树与 Render(Offscreen)
+        bilibili: BV1Pi4y1U7NF
+        youtube: M-V3W7nq-Lo
+      - title: 第四周 · Ink 谈入门,vl.stride 动力学
+        bilibili: BV1L5411d7Mc
+        youtube: Q6iWvnVcr0A
+      - title: 第五周 · 写 shader 入门
+        bilibili: BV1QR4y1A7Lq
+        youtube: 6ChcPU0g9h8
+      - title: 第六周 · 玩转 Fuse Shader 节点
+        bilibili: BV1754y1f75a
+        youtube: tzC24q90aLQ
+      - title: 第六周 QA · Elementa、ToObservable、SpreadBuilder
+        bilibili: BV1zY411F7ZM
+        youtube: 9OHmgHKHpDc
+      - title: QA 精选 · Clone 讲 Reactive 响应式编程
+        bilibili: BV1ER4y1w7z9
+        youtube: oszwEBhT63o
+      - title: 第七周 · FUSE 粒子系统初探
+        bilibili: BV1mB4y1Q72z
+        youtube: vkHQPh-hVxA
+
+  # ---- 其他人做的 ----
+  # 这个站是资源聚合,不是个人主页。别人做的中文 vvvv 内容一样收进来,
+  # author 字段会显示在系列标题旁边,注明出处。
+  - id: jiedianyingshe
+    title: 互动艺术教程
+    author: 节点映射
+    author_href: https://space.bilibili.com/343349374
+    note: >-
+      另一位 UP 主做的系列,从安装讲到摄像头、LeapMotion 这些实际的
+      互动输入。和上面的内容互补,视角也不一样。
+    episodes:
+      - title: 1 · 基础介绍及安装
+        bilibili: BV1zf4y1q7JR
+        youtube: ''
+      - title: 2 · gamma 和 beta 的区别
+        bilibili: BV1UK4y1Z7Kj
+        youtube: ''
+      - title: 3 · Stride 游戏引擎
+        bilibili: BV1bb4y1d7H8
+        youtube: ''
+      - title: 4 · 如何调用大神贡献的代码
+        bilibili: BV1ta411F7hQ
+        youtube: ''
+      - title: 5 · 用 Repeat 创建多个物体对象
+        bilibili: BV1oT4y1N73Z
+        youtube: ''
+      - title: 6 · 如何解决节点报错
+        bilibili: BV1qs4y1A7Qr
+        youtube: ''
+      - title: 7 · 获取摄像头并进行互动分析
+        bilibili: BV1F24y1F7RJ
+        youtube: ''
+      - title: 8 · 把摄像头数据与节点对接
+        bilibili: BV1QL411Y7QW
+        youtube: ''
+      - title: 9 · 把 LeapMotion 和 vvvv 对接
+        bilibili: BV1zs4y197P5
+        youtube: ''
+      - title: 用 vvvv 做交互式原型草图
+        bilibili: BV1D64y1R71j
+        youtube: ''
