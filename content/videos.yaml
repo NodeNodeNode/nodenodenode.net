@@ -10,10 +10,15 @@
 # * 两个字段都可以留空:只在一个平台有的集数很常见,组件会自动只显示
 #   有的那个。
 #
-# 顺序 = 建议的学习顺序,不是发布顺序。想调整直接挪条目。
+# 顺序 = **建议的学习顺序,按内容难易排,不按作者分组**。
+# 这个站是资源聚合站,不是谁的作品集 —— 把自己的排前面、别人的垫底,
+# 观感上就变味了。序号由组件按数组下标自动生成,挪条目即可,不用手改。
 
 channel_bilibili: https://space.bilibili.com/19207397
 channel_youtube: https://www.youtube.com/channel/UCSJuEFRlfo11WDbeWFcFZVg
+
+# 渲染在章节标题下面。一句话挑明这是目录不是作品集。
+intro: 本页收录 连节社 与 节点映射(TonyMark) 做的中文教程,按由浅入深排列。
 
 series:
   - id: intro
@@ -37,6 +42,53 @@ series:
       - title: 互动小程序 hello world 2
         bilibili: BV1AZ4y1Q7Ue
         youtube: wt1JcclBed0
+
+  # 排在第 2 位不是客气,是这套教程本来就是入门级(安装、gamma vs beta、
+  # 摄像头/LeapMotion 等硬件输入),放这儿对新人最有用。
+  - id: jiedianyingshe
+    title: 互动艺术教程
+    # B 站叫「节点映射」,YouTube 叫「TonyMark」,同一个人。
+    # 两个名字都写出来,免得被当成两个作者。
+    author: 节点映射 / TonyMark
+    author_href: https://space.bilibili.com/343349374
+    youtube_playlist: PLlC309TWKG87MfZC61rCTyqMTVDgoWbFy
+    note: >-
+      从安装一路讲到摄像头、LeapMotion 这些实际的互动输入,偏硬件和装置。
+      和连节社的内容互补,视角也不一样。
+    episodes:
+      - title: 1 · 基础介绍及安装
+        bilibili: BV1zf4y1q7JR
+        youtube: 7JwU38ODT4c
+      - title: 2 · gamma 和 beta 的区别
+        bilibili: BV1UK4y1Z7Kj
+        youtube: JdIK7kiWggI
+      - title: 3 · Stride 游戏引擎
+        bilibili: BV1bb4y1d7H8
+        youtube: xC2IhWfLDsU
+      - title: 4 · 如何调用大神贡献的代码
+        bilibili: BV1ta411F7hQ
+        youtube: cc3IGilfTHs
+      - title: 5 · 用 Repeat 创建多个物体对象
+        bilibili: BV1oT4y1N73Z
+        youtube: Pl2cD3Q7cYk
+      - title: 6 · 如何解决节点报错
+        bilibili: BV1qs4y1A7Qr
+        youtube: 5AXIn8rmx8s
+      - title: 7 · 获取摄像头并进行互动分析
+        bilibili: BV1F24y1F7RJ
+        youtube: g-CTjxa_fTI
+      - title: 8 · 把摄像头数据与节点对接
+        bilibili: BV1QL411Y7QW
+        youtube: Jm33-2cjXBs
+      - title: 9 · 把 LeapMotion 和 vvvv 对接
+        bilibili: BV1zs4y197P5
+        youtube: KZLdUwv22WQ
+      - title: 可视化编程是怎么回事
+        bilibili: BV1uo4y1y7c8
+        youtube: 4MhhFAum9Ps
+      - title: 用 vvvv 做交互式原型草图
+        bilibili: BV1D64y1R71j
+        youtube: ''
 
   - id: basics
     title: 基础节点介绍
@@ -171,45 +223,3 @@ series:
       - title: 第七周 · FUSE 粒子系统初探
         bilibili: BV1mB4y1Q72z
         youtube: vkHQPh-hVxA
-
-  # ---- 其他人做的 ----
-  # 这个站是资源聚合,不是个人主页。别人做的中文 vvvv 内容一样收进来,
-  # author 字段会显示在系列标题旁边,注明出处。
-  - id: jiedianyingshe
-    title: 互动艺术教程
-    author: 节点映射
-    author_href: https://space.bilibili.com/343349374
-    note: >-
-      另一位 UP 主做的系列,从安装讲到摄像头、LeapMotion 这些实际的
-      互动输入。和上面的内容互补,视角也不一样。
-    episodes:
-      - title: 1 · 基础介绍及安装
-        bilibili: BV1zf4y1q7JR
-        youtube: ''
-      - title: 2 · gamma 和 beta 的区别
-        bilibili: BV1UK4y1Z7Kj
-        youtube: ''
-      - title: 3 · Stride 游戏引擎
-        bilibili: BV1bb4y1d7H8
-        youtube: ''
-      - title: 4 · 如何调用大神贡献的代码
-        bilibili: BV1ta411F7hQ
-        youtube: ''
-      - title: 5 · 用 Repeat 创建多个物体对象
-        bilibili: BV1oT4y1N73Z
-        youtube: ''
-      - title: 6 · 如何解决节点报错
-        bilibili: BV1qs4y1A7Qr
-        youtube: ''
-      - title: 7 · 获取摄像头并进行互动分析
-        bilibili: BV1F24y1F7RJ
-        youtube: ''
-      - title: 8 · 把摄像头数据与节点对接
-        bilibili: BV1QL411Y7QW
-        youtube: ''
-      - title: 9 · 把 LeapMotion 和 vvvv 对接
-        bilibili: BV1zs4y197P5
-        youtube: ''
-      - title: 用 vvvv 做交互式原型草图
-        bilibili: BV1D64y1R71j
-        youtube: ''

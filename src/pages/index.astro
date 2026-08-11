@@ -70,6 +70,7 @@ const hasVideos = Array.isArray(videos.series) && videos.series.length > 0
     {
       hasVideos && (
         <Section id="videos" num="03" title="视频教程" latin="tutorials">
+          {filled(videos.intro) && <p class="lead">{videos.intro}</p>}
           <div class="series">
             {videos.series.map((s, i) => (
               <SeriesCard s={s} index={i} />
@@ -175,10 +176,12 @@ const hasVideos = Array.isArray(videos.series) && videos.series.length > 0
     margin-bottom: var(--s2);
   }
 
-  /* 系列是整幅宽的横条,不是网格 —— 分集标题很长,窄列会折得很难看 */
+  /* 两列网格。六个系列竖着堆是一条 1700px 的瀑布流,两列 + 全部折叠
+     之后一屏就能看完。minmax 里的 min(100%, 400px) 让窄屏自动退回单列,
+     不用额外写断点。 */
   .series {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr));
     gap: var(--s3);
     margin-left: var(--s3);
   }

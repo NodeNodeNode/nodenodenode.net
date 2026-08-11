@@ -2,8 +2,9 @@
 /**
  * 一个视频系列。
  *
- * 分集列表用原生 <details> 折叠 —— 六个系列五十多集,全摊开页面就废了,
- * 而 <details> 不需要一行 JS。第一个系列默认展开,给人看一眼是什么样子。
+ * 卡片是紧凑版:两列网格里每列只有 ~400px,封面 160×90、标题 12px。
+ * 分集列表用原生 <details> 折叠、且**全部默认收起** —— 六个系列五十多集,
+ * 摊开就是一条看不到头的瀑布流。<details> 不需要一行 JS。
  */
 import { filled, hasAsset } from '../lib/content.js'
 
@@ -28,7 +29,7 @@ const onBili = s.episodes.filter((e) => filled(e.bilibili)).length
   <div class="sc__cover">
     {
       cover ? (
-        <img src={cover} alt="" width="240" height="135" loading="lazy" />
+        <img src={cover} alt="" width="160" height="90" loading="lazy" />
       ) : (
         <div class="sc__cover-empty dither" />
       )
@@ -61,7 +62,9 @@ const onBili = s.episodes.filter((e) => filled(e.bilibili)).length
       )
     }
 
-    <details class="sc__eps" open={index === 0}>
+    {/* 全部默认折叠:六个系列一屏看完,想看哪个点哪个。
+        <details> 是原生元素,关掉 JS 也能展开。 */}
+    <details class="sc__eps">
       <summary class="pixel">分集({s.episodes.length})</summary>
       <ol class="sc__list">
         {
@@ -114,19 +117,19 @@ const onBili = s.episodes.filter((e) => filled(e.bilibili)).length
 
   .sc__cover {
     flex: none;
-    width: 240px;
+    width: 160px;
   }
 
   .sc__cover img {
-    width: 240px;
-    height: 135px;
+    width: 160px;
+    height: 90px;
     object-fit: cover;
     border: var(--line);
   }
 
   .sc__cover-empty {
-    width: 240px;
-    height: 135px;
+    width: 160px;
+    height: 90px;
     border: var(--line-soft);
     background-color: var(--grey-100);
   }
@@ -149,7 +152,7 @@ const onBili = s.episodes.filter((e) => filled(e.bilibili)).length
   }
 
   .sc__title {
-    font-size: var(--px-2);
+    font-size: var(--px-1);
     margin-right: auto;
   }
 
@@ -168,9 +171,8 @@ const onBili = s.episodes.filter((e) => filled(e.bilibili)).length
   .sc__note {
     margin-top: var(--s1);
     color: var(--grey-700);
-    font-size: 15px;
-    line-height: 24px;
-    max-width: 62ch;
+    font-size: 14px;
+    line-height: 20px;
   }
 
   .sc__warn {
