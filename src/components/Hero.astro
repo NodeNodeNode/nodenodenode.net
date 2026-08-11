@@ -3,17 +3,11 @@ import { site } from '../lib/content.js'
 ---
 
 <section class="hero">
+  {/*
+    这里不放 logo 图 —— logo 就是「连节」两个字,和旁边 72px 的「连节社」
+    并排等于同一个词印两遍。标记归 header,名字归这里。
+  */}
   <div class="wrap hero__in">
-    <div class="hero__mark">
-      <img
-        src="/img/logo.png"
-        width="168"
-        height="168"
-        alt={`${site.name} logo`}
-        class="hero__logo"
-      />
-    </div>
-
     <div class="hero__body">
       <p class="hero__tagline pixel">{site.tagline}</p>
       <h1 class="hero__title pixel">{site.name}</h1>
@@ -62,26 +56,12 @@ import { site } from '../lib/content.js'
     pointer-events: none;
   }
 
+  /* logo 拿掉之后就是单栏了,不用再 flex */
   .hero__in {
     position: relative;
-    display: flex;
-    align-items: flex-start;
-    gap: var(--s8);
   }
 
-  .hero__mark {
-    flex: none;
-    border: var(--line);
-    background: var(--void);
-  }
 
-  /* 168px 原生尺寸(21x8),1:1 显示,不缩放 —— 位图放大缩小都会脏 */
-  .hero__logo {
-    image-rendering: pixelated;
-    display: block;
-    width: 168px;
-    height: 168px;
-  }
 
   .hero__body {
     max-width: 56ch;
@@ -93,8 +73,9 @@ import { site } from '../lib/content.js'
     text-transform: uppercase;
   }
 
+  /* 首屏的主视觉就是这三个字 —— 72px = 12×6,行高 4/3 得 96px,落在 8px 网格上 */
   .hero__title {
-    font-size: var(--px-4);
+    font-size: var(--px-6);
     margin-block: var(--s2);
   }
 
@@ -122,17 +103,9 @@ import { site } from '../lib/content.js'
     .hero {
       padding-block: var(--s6) var(--s6);
     }
-    .hero__in {
-      flex-direction: column;
-      gap: var(--s4);
-    }
-    /* 168 → 84 是整数分之一(每格 4px),像素不会糊 */
-    .hero__logo {
-      width: 84px;
-      height: 84px;
-    }
+    /* 72px 的三个汉字在 390px 屏上会顶满,退回 48px */
     .hero__title {
-      font-size: var(--px-3);
+      font-size: var(--px-4);
     }
   }
 </style>
