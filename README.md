@@ -213,8 +213,14 @@ JPEG 头像还原回 21×21 点阵再放大,去掉压缩噪点。
    官方也建议这么做,自定义域名被标记的概率低得多。
 2. **DNS 记录以 Vercel 控制台当时给出的为准。** 社区里流传的"大陆友好"
    解析目标会变,别照抄任何文档里写死的 IP,包括这一份。
-3. **`thegraybook.nodenodenode.net` 的 CNAME 不能动。** 灰皮书中文站
-   是独立部署的,改 apex 解析时碰到这条记录会把它一起弄挂。
+3. **DNS 托管在 Google Cloud DNS**(`ns-cloud-c*.googledomains.com`),
+   记录在 Google Cloud Console 里改,不在注册商那边。
+   **不要把 nameserver 换成 Vercel 的** —— 换了就得把
+   `thegraybook.nodenodenode.net` 那条记录重建一遍,白担风险。
+   用 A / CNAME 接入,现有记录一条都不用碰。
+
+   > 灰皮书中文站本身也在 Vercel 上(CNAME → `cname.vercel-dns.com`),
+   > 是另一个项目。只要不动 nameserver,给 apex 接新项目不会影响它。
 4. 老论坛那台 DigitalOcean(`188.166.208.97`)现在只在跑一个 nginx
    默认页,新站确认正常后再退掉。
 
