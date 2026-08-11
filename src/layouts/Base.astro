@@ -1,4 +1,5 @@
 ---
+import Analytics from '@vercel/analytics/astro'
 import '../styles/tokens.css'
 import { site } from '../lib/content.js'
 
@@ -35,6 +36,21 @@ const canonical = new URL(Astro.url.pathname, Astro.site).href
 
     <link rel="icon" href="/img/logo.png" type="image/png" />
     <meta name="theme-color" content="#d8d8d8" />
+
+    {/*
+      Vercel Web Analytics。这是全站唯一的脚本。
+
+      它走的是第一方路径(/_vercel/insights/*),不是外部域名,所以不违反
+      「零外部源」——check:external 也据此放行。页面本身不依赖它:关掉
+      JavaScript,所有内容和链接照常可用。
+
+      注意 vercel.json 的 CSP 必须留 script-src 'self',否则脚本会被浏览器
+      静默拦掉:面板上显示已启用,数据永远是 0,而且没有任何报错提示。
+
+      另:墙内用户常常加载不全,信标发不出去。也就是说这份数据会系统性地
+      少算大陆读者,看的时候心里要有数。
+    */}
+    <Analytics />
   </head>
 
   <body>

@@ -28,7 +28,9 @@ footer:
   # TODO 填一个长期有效的联系方式(邮箱或微信号),用于二维码过期时兜底
   contact_label: ''
   contact_href: ''
+  # 这里必须和实际情况一致。装了统计就得说,含糊过去比不写更糟。
   colophon: >-
-    本站为纯静态页面,不含统计脚本,不加载任何第三方资源。
+    本站为纯静态页面,不加载任何第三方资源。访问统计用 Vercel Web Analytics,
+    不使用 Cookie,不采集可识别个人的信息。
   font_credit: >-
     标题字体 Fusion Pixel Font(缝合怪像素字体),SIL Open Font License 1.1。

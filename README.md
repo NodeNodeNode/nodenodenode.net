@@ -3,7 +3,7 @@
 **连节社** —— vvvv gamma 中文社区的入口页。
 
 一个纯静态单页站,把散落在 B 站、YouTube、灰皮书、GitHub 上的中文资源
-归拢到一处。零运行时 JS,不含任何统计脚本,不加载任何第三方资源。
+归拢到一处。不加载任何第三方资源,页面关掉 JavaScript 也完全可用。
 
 线上:<https://nodenodenode.net>
 
@@ -68,7 +68,7 @@ YouTube iframe 不只是"少个东西",它会让整页卡住甚至白屏。所�
 | YouTube / B 站 iframe 嵌入 | 静态本地缩略图 + 普通链接 |
 | B 站 / YouTube 图床的缩略图 | `npm run thumbs` 抓到本地 |
 | jsdelivr / unpkg 引 JS 或 CSS | 不引。这站不需要 JS |
-| 任何统计脚本 | 不装 |
+| Google Analytics 等第三方统计 | 用 Vercel Web Analytics(第一方路径,见下) |
 
 用户**主动点击**的外链没问题(B 站、GitHub、vvvv.org 都在页面上),
 禁的是浏览器自动发起的请求。
@@ -83,8 +83,37 @@ YouTube iframe 不只是"少个东西",它会让整页卡住甚至白屏。所�
 
    > `vercel.json` 的 schema 是严格的,多余的键会让部署直接失败,
    > 所以那个文件里不能写注释。它的三条 header 分别是:字体和图片
-   > 长缓存、基础安全头、以及上面这条 CSP。`style-src` 必须留
-   > `'unsafe-inline'`,因为 CSS 是内联进 `<head>` 的。
+   > 长缓存、基础安全头、以及上面这条 CSP。两处 `'unsafe-inline'`
+   > 都是必需的:`style-src`(CSS 内联在 `<head>` 里)和 `script-src`
+   > (统计脚本是内联的,见下)。
+   >
+   > 放宽 `script-src` 不影响这条 CSP 在本项目里的**实际作用** ——
+   > 它的目的是"禁止任何第三方来源",而 `script-src` 里没有列出任何
+   > 外部域名、`connect-src 'self'` 也堵死了往外发数据,这两点没变。
+   > 损失的是防 XSS 的强度,而本站不渲染任何用户输入。
+
+### 访问统计
+
+用 Vercel Web Analytics。它的脚本走**第一方路径** `/_vercel/insights/*`,
+不是外部域名,所以不违反上面那条铁律,`check:external` 也据此放行。
+
+三个坑:
+
+1. **光在 Vercel 面板上点 Enable 是没用的。** 必须同时在
+   `src/layouts/Base.astro` 里保留 `<Analytics />`(来自 `@vercel/analytics`)。
+2. **CSP 必须是 `script-src 'self' 'unsafe-inline'`。** `@vercel/analytics`
+   注入的是**内联** `<script type="module">`,只写 `'self'` 是不够的 ——
+   `'self'` 只放行同源的外链脚本,内联照样被拦。表现是:面板显示已启用、
+   构建没有任何报错、数据永远是 0。改 CSP 之后务必实测一次:
+   ```bash
+   # 把 CSP 塞成 meta 标签,看控制台有没有拦截
+   google-chrome --headless=new --enable-logging=stderr --dump-dom <测试页> 2>&1 >/dev/null \
+     | grep -i "violates the following content security policy"
+   ```
+3. **数据会系统性少算大陆读者。** 墙内本来就可能加载不全,信标发不出去。
+   看数字时要知道它偏向海外。
+
+页面本身不依赖这个脚本:关掉 JavaScript,所有内容和链接照常可用。
 
 ---
 
