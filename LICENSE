@@ -1,0 +1,38 @@
+MIT License
+
+Copyright (c) 2026 连节社 (NodeNodeNode)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+注:上述 MIT 授权覆盖本仓库的**代码**(Astro 组件、样式、构建脚本)。
+仓库里另外几类素材不在此列,各自遵循自己的授权:
+
+* `public/fonts/` 的 Fusion Pixel Font(缝合怪像素字体)
+  —— SIL Open Font License 1.1,须保留其授权声明。
+  https://github.com/TakWolf/fusion-pixel-font
+
+* `public/img/thumbs/` 的视频封面缩略图
+  —— 版权归各视频作者所有,本站仅作索引用途。
+
+* `public/img/logo.png`、`vendor/logo-source.png` 以及 `content/` 下的
+  文字内容 —— 归连节社所有。
+
+换句话说:代码随便拿去用;素材请自备。
