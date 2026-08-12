@@ -76,6 +76,7 @@ groups:
       - title: Prototyping Interfaces(德文原版官网)
         href: https://prototypinginterfaces.com/
         lang: de
+        isbn: '9783874398435'
         note: >-
           上面第一本的原著,Jan Barth、Roman Stefan Grasy 等编著,336 页。
           这个网站不看德文也值得进:书里每个实例的 vvvv patch 文件都能免费
