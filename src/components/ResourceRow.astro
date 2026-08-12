@@ -1,24 +1,64 @@
 ---
+import { hasAsset } from '../lib/content.js'
+
 const { item } = Astro.props
 
 // 中文条目要显眼,外文条目只是标一下 —— 别让人点进去才发现要啃外语
-const LANG = { zh: '中文', en: 'EN', de: '德文' }
+const LANG = { zh: '中文', en: 'EN', de: '德文', ja: '日文' }
 const lang = LANG[item.lang] ?? item.lang
+
+// 书的封面按 ISBN 命名存在 public/img/books/。没有的条目照常渲染成纯文字行,
+// 不占位、不留空框 —— 只有一两本有封面时,一排空框比没有封面更难看。
+const cover = item.isbn ? `/img/books/${item.isbn}.jpg` : ''
+const hasCover = hasAsset(cover)
 ---
 
-<li class="rr">
-  <a class="rr__link" href={item.href} target="_blank" rel="noopener noreferrer">
-    <span class="pin"></span>
-    <span class="rr__title pixel">{item.title}</span>
-    <span class:list={['rr__lang', 'pixel', `rr__lang--${item.lang}`]}>{lang}</span>
-  </a>
-  <p class="rr__note">{item.note}</p>
+<li class:list={['rr', hasCover && 'rr--cover']}>
+  {
+    hasCover && (
+      <a class="rr__cover" href={item.href} target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+        <img src={cover} alt="" width="120" height="168" loading="lazy" />
+      </a>
+    )
+  }
+  <div class="rr__body">
+    <a class="rr__link" href={item.href} target="_blank" rel="noopener noreferrer">
+      <span class="pin"></span>
+      <span class="rr__title pixel">{item.title}</span>
+      <span class:list={['rr__lang', 'pixel', `rr__lang--${item.lang}`]}>{lang}</span>
+    </a>
+    <p class="rr__note">{item.note}</p>
+  </div>
 </li>
 
 <style>
   .rr {
     border-top: var(--line-soft);
     padding-block: var(--s2);
+  }
+
+  /* 有封面的条目改成「图 + 文」两栏。封面只是识别用的小图,
+     不抢注意力,所以宽度压到 120px */
+  .rr--cover {
+    display: flex;
+    gap: var(--s3);
+    align-items: flex-start;
+  }
+
+  .rr__cover {
+    flex: none;
+    display: block;
+  }
+
+  .rr__cover img {
+    width: 120px;
+    height: auto;
+    border: var(--line);
+  }
+
+  .rr__body {
+    flex: 1;
+    min-width: 0;
   }
 
   .rr:last-child {
@@ -69,5 +109,14 @@ const lang = LANG[item.lang] ?? item.lang
     font-size: 15px;
     line-height: 24px;
     max-width: 64ch;
+  }
+
+  @media (max-width: 560px) {
+    .rr__cover img {
+      width: 80px;
+    }
+    .rr--cover {
+      gap: var(--s2);
+    }
   }
 </style>

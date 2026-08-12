@@ -57,6 +57,7 @@ const hasVideos = Array.isArray(videos.series) && videos.series.length > 0
         resources.groups.map((g) => (
           <div class="rgroup">
             <h3 class="rgroup__title label">{g.title}</h3>
+            {filled(g.note) && <p class="rgroup__note">{g.note}</p>}
             <ul>
               {g.items.map((item) => (
                 <ResourceRow item={item} />
@@ -192,6 +193,19 @@ const hasVideos = Array.isArray(videos.series) && videos.series.length > 0
 
   .rgroup__title {
     margin-bottom: var(--s2);
+  }
+
+  /* 分组级别的说明。目前只有「书」用到 —— 那些书讲的都是 beta 不是 gamma,
+     这个前提得摆在列表前面,不能等人点进豆瓣才发现 */
+  .rgroup__note {
+    margin-bottom: var(--s2);
+    padding: var(--s2);
+    border: var(--line-soft);
+    background: var(--grey-100);
+    color: var(--grey-700);
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 64ch;
   }
 
   /* 两列网格。六个系列竖着堆是一条 1700px 的瀑布流,两列 + 全部折叠

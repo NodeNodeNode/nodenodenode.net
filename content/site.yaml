@@ -25,9 +25,10 @@ hero:
 # 页脚
 footer:
   github: https://github.com/NodeNodeNode
-  # TODO 填一个长期有效的联系方式(邮箱或微信号),用于二维码过期时兜底
-  contact_label: ''
-  contact_href: ''
+  # 联系方式走 GitHub issue:不用翻墙、不会过期、公开可查,
+  # 而且比邮箱更不容易变成僵尸入口(有人开 issue 会有通知)。
+  contact_label: 开 ISSUE
+  contact_href: https://github.com/NodeNodeNode/nodenodenode.net/issues
   # 这里必须和实际情况一致。装了统计就得说,含糊过去比不写更糟。
   colophon: >-
     本站为纯静态页面,不加载任何第三方资源。访问统计用 Vercel Web Analytics,

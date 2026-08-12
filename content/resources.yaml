@@ -19,11 +19,6 @@ groups:
           官方文档 the gray book 的中文翻译站,覆盖编辑器、VL 语言特性
           和第三方库的用法。持续翻译中。
 
-      - title: 中文文档合集
-        href: https://lianjieshe.notion.site/lianjieshe/Gamma-c1eff39c7cd140f4adfe0fad71c15080
-        lang: zh
-        note: 早期整理在 Notion 上的中文资料,部分内容尚未迁移到灰皮书。
-
   - id: reference
     title: 深入查阅
     items:
@@ -44,28 +39,54 @@ groups:
 
   # 购买链接只放豆瓣:页面稳定中立,上面自带各平台入口。
   # 不放孔夫子(是某一本二手书的具体 listing,卖掉就 404)和天猫
-  # (带一长串追踪参数)。也不放书封图 —— 那是出版社的版权素材。
+  # (带一长串追踪参数)。
+  #
+  # 封面存在 public/img/books/,按 ISBN 命名,和视频封面一样转灰度 ——
+  # 全站只允许一个彩色(信号蓝)。缺封面的条目会自动退化成占位块。
   - id: books
     title: 书
+    # 这句警告不能省。vvvv gamma 是 2020 年 4 月「reprogrammed from
+    # scratch」重写的,而现存所有 vvvv 书都出在那之前 —— 讲的是 beta。
+    # 新人照着书在 gamma 里做,patch 根本打不开。与其让他花几十上百块
+    # 买回来才发现,不如写在前面。
+    note: >-
+      先说清楚:下面这些书讲的都是 vvvv beta,不是 gamma。gamma 是 2020 年
+      从零重写的,两者的 patch 并不通用。书里的思路、硬件和追踪那部分仍然
+      很有价值,但别指望照着做能在 gamma 里跑起来。
     items:
       - title: 原型界面—交互草图与 vvvv
         href: https://book.douban.com/subject/36180600/
         lang: zh
+        isbn: '9787571325763'
         note: >-
-          目前唯一的 vvvv 中文实体书,而且是这本书在全世界唯一的译本 ——
-          原著除德文外只有中文版。南京艺术学院刘彦副教授译,江苏凤凰科学
-          技术出版社 2022 年 5 月出版,ISBN 978-7-5713-2576-3。内容覆盖
-          vvvv、Arduino、各种追踪方式和显示技术,偏互动装置的硬件侧,
-          和线上教程正好互补。
+          这本书在全世界唯一的译本 —— 原著除德文外只有中文版。南京艺术学院
+          刘彦副教授译,江苏凤凰科学技术出版社 2022 年 5 月出版,
+          ISBN 978-7-5713-2576-3。内容覆盖 vvvv、Arduino、各种追踪方式和
+          显示技术,偏互动装置的硬件侧。
+
+      - title: VVVV与新媒体艺术创作
+        href: https://book.douban.com/subject/30184630/
+        lang: zh
+        isbn: '9787562190189'
+        note: >-
+          成都新媒体艺术家李琨编著,西南师范大学出版社 2018 年出版,396 页,
+          ISBN 978-7-5621-9018-9,属「四川音乐学院电子音乐理论与技术丛书」。
+          另一本中文 vvvv 书,视角偏新媒体艺术创作而不是纯技术。
 
       - title: Prototyping Interfaces(德文原版官网)
         href: https://prototypinginterfaces.com/
         lang: de
         note: >-
-          原著 Jan Barth、Roman Stefan Grasy 等编著,336 页,只有德文版。
-          但这个网站不看德文也值得进:书里每个实例的 vvvv patch 文件都能
-          免费下载,还附了各例子需要的 Arduino 驱动和软件链接。
-          手上有中文版的话,配着这里的源文件看效率高得多。
+          上面第一本的原著,Jan Barth、Roman Stefan Grasy 等编著,336 页。
+          这个网站不看德文也值得进:书里每个实例的 vvvv patch 文件都能免费
+          下载,还附了各例子需要的 Arduino 驱动和软件链接。
+
+      - title: vvvvook
+        href: https://www.amazon.co.jp/dp/486100800X
+        lang: ja
+        note: >-
+          日文,伊藤稔 / 星卓也著,BNN 出版。列在这里是因为 vvvv 的书总共就
+          这么几本 —— 想找齐的话它是其中之一。
 
   - id: contribute
     title: 一起做点事
