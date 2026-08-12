@@ -82,11 +82,14 @@ groups:
           下载,还附了各例子需要的 Arduino 驱动和软件链接。
 
       - title: vvvvook
-        href: https://www.amazon.co.jp/dp/486100800X
+        href: https://bnn.co.jp/products/9784861008009
         lang: ja
+        isbn: '9784861008009'
         note: >-
-          日文,伊藤稔 / 星卓也著,BNN 出版。列在这里是因为 vvvv 的书总共就
-          这么几本 —— 想找齐的话它是其中之一。
+          日本第一本 vvvv 入门书,副题是「为原型设计而学的可视化编程」。
+          覆盖交互、2D/3D 动画、实时图形、audiovisual、数据可视化和
+          物理计算。伊東実 / 星卓哉著,BNN 2014 年出版,B5 判 224 页全彩,
+          ISBN 978-4-86100-800-9。
 
   - id: contribute
     title: 一起做点事
